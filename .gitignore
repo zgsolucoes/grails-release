@@ -5,3 +5,9 @@ plugin.xml
 pom.xml
 target
 web-app/WEB-INF/classes
+
+# Itellij Idea Workspace
+.idea
+*.iws
+*.iml
+*.ids
