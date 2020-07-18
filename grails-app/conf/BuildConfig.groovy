@@ -1,3 +1,8 @@
+Map<String, String> ENV = System.getenv()
+String mvnRepoHost = ENV['MVN_REPO_HOST']
+String mvnRepoUser = ENV['MVN_REPO_USER']
+String mvnRepoPassword = ENV['MVN_REPO_PASSWORD']
+
 grails.project.work.dir = 'target'
 grails.project.docs.output.dir = "docs"
 grails.project.source.level = 1.6
@@ -14,6 +19,15 @@ grails.project.dependency.resolution = {
 
         mavenLocal()
         mavenRepo "https://repo1.maven.org/maven2/"
+        mavenRepo ENV['MVN_REPO_REPOSITORIES_URL_LIBS']
+        mavenRepo ENV['MVN_REPO_REPOSITORIES_GRAILS_PLUGINS']
+    }
+
+    credentials {
+        realm = ENV['MVN_REPO_REALM']
+        host = mvnRepoHost
+        username = mvnRepoUser
+        password = mvnRepoPassword
     }
 
     plugins {
@@ -30,3 +44,13 @@ grails.project.dependency.resolution = {
         }
     }
 }
+
+grails.project.repos.releases.url = ENV['MVN_REPO_REPOSITORIES_URL_PLUGINS_RELEASE']
+grails.project.repos.releases.username = mvnRepoUser
+grails.project.repos.releases.password = mvnRepoPassword
+
+grails.project.repos.snapshots.url = ENV['MVN_REPO_REPOSITORIES_URL_PLUGINS_SNAPSHOT']
+grails.project.repos.snapshots.username = mvnRepoUser
+grails.project.repos.snapshots.password = mvnRepoPassword
+
+grails.project.repos.default = 'snapshots'
